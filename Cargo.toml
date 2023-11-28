@@ -6,6 +6,9 @@ authors = ["FlorianXXIV <mail@florianxxiv.dev>"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[dependencies.encounters]
+path = "./prototypes/encounters"
+
 [dependencies]
 log = "0.4.20"
 env_logger = "0.10.1"

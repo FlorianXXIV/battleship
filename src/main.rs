@@ -5,6 +5,8 @@ use std::io::Read;
 use std::path::Path;
 use std::str::FromStr;
 
+use encounters::{encounter, EncounterState};
+
 use colored::{Color, Colorize};
 use json::JsonValue;
 use log::{debug, error, info};
@@ -106,8 +108,23 @@ fn init_new() -> Result<(), String> {
     info!("Ship Initialized: {:?}", ship);
 
     print_txt("lang/en/greeting2.txt", None).expect("Failed to print greeting.");
+
+    game_loop(ship, player);
     
     Ok(())
+}
+
+fn game_loop(ship: Ship, player: Player) {
+    loop {
+        match encounter().unwrap() {
+            EncounterState::NEXT => {
+                continue;
+            }
+            EncounterState::BREAK => {
+                break;
+            }
+        }
+    }
 }
 
 fn init_ship() -> io::Result<Ship> {
