@@ -103,7 +103,7 @@ fn init_new() -> Result<(), String> {
     let kern = load_char("kern");
     info!("Loaded kern with: {:?}", kern);
     
-    print!("{}", kern["greeting_form_finished"].to_string());
+    print!("{}", kern["greeting_form_finished"].to_string().white());
     let ship = init_ship().expect("Failed to initialize Ship");
     info!("Ship Initialized: {:?}", ship);
 
