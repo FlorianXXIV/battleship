@@ -5,11 +5,15 @@ use std::io::Read;
 use std::path::Path;
 use std::str::FromStr;
 
-use encounters::{encounter, EncounterState};
-
 use colored::{Color, Colorize};
 use json::JsonValue;
 use log::{debug, error, info};
+
+use ship::{init_ship, Ship};
+use crate::battles::init_battle;
+
+mod battles;
+mod ship;
 
 #[derive(Debug)]
 struct Town(String);
@@ -28,16 +32,6 @@ struct Player {
     age: u32,
     hometown: Town,
     captain_id: i64,
-}
-
-#[derive(Debug, Clone)]
-struct Ship {
-    name: String,
-    hull: i32,
-    crew: i32,
-    heavy_ammunition: i32,
-    light_ammunition: i32,
-    rations: i32,
 }
 
 fn main() {
@@ -115,33 +109,8 @@ fn init_new() -> Result<(), String> {
 }
 
 fn game_loop(ship: Ship, player: Player) {
-    loop {
-        match encounter().unwrap() {
-            EncounterState::NEXT => {
-                continue;
-            }
-            EncounterState::BREAK => {
-                break;
-            }
-        }
-    }
-}
-
-fn init_ship() -> io::Result<Ship> {
-    let mut ship_out = Ship {
-        name: "".to_string(),
-        hull: 100,
-        crew: 50,
-        heavy_ammunition: 50,
-        light_ammunition: 1000,
-        rations: 100,
-    };
-    let mut input = String::new();
-
-    io::stdin().read_line(&mut input)?;
-    ship_out.name = input.trim().to_string();
-
-    Ok(ship_out)
+    let battlefield = init_battle(3);
+    println!("{:?}", battlefield)
 }
 
 fn load_char(to_load: &str) -> JsonValue {
