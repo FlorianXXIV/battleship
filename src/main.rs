@@ -109,7 +109,7 @@ fn init_new() -> Result<(), String> {
 }
 
 fn game_loop(ship: Ship, player: Player) {
-    let battlefield = init_battle(3);
+    let mut battlefield = init_battle(3, ship);
     println!("{:?}", battlefield)
 }
 

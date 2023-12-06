@@ -1,5 +1,5 @@
 use crate::battles::TileType::WATER;
-use crate::ship::ShipSection;
+use crate::ship::{SectionType, Ship};
 
 #[derive(Debug)]
 pub struct Battlefield {
@@ -16,21 +16,25 @@ impl Battlefield {
 enum TileType {
     WATER,
     LAND,
-    SHIP(ShipSection),
+    SHIP(SectionType),
 }
 
-pub fn init_battle(size:i32) -> Battlefield {
+pub fn init_battle(size:i32, ship: Ship) -> Battlefield {
     let mut out: Vec<Vec<TileType>> = Vec::new();
 
-    for i in 0..size {
+    for _i in 0..size {
         let mut buf: Vec<TileType> = Vec::new();
         out.push({
-            for j in 0..size {
+            for _j in 0..size {
                 buf.push(WATER);
             }
             buf
         });
     }
+
+    let sections = ship.get_sections().unwrap();
+
+
 
     Battlefield { battlefield: out }
 }
