@@ -34,24 +34,20 @@ impl Ship {
         }
     }
 
-    pub fn get_bow(&self) -> Option<&SectionType> {
-        self.sections.first()
+    pub fn get_aft(&self) -> usize {
+        self.sections.len()-1
     }
 
-    pub fn get_aft(&self) -> Option<&SectionType> {
-        self.sections.last()
+    pub fn get_center(&self) -> usize {
+        self.sections.len()/2usize
     }
 
-    pub fn get_center(&self) -> Option<&SectionType> {
-        Some(&self.sections[self.sections.len()/2usize])
+    pub fn get_section_at(&self, index: usize) -> &SectionType {
+        &self.sections[index as usize]
     }
 
-    pub fn get_section_at(&self, index: u32) -> Option<&SectionType> {
-        Some(&self.sections[index])
-    }
-
-    pub fn get_sections(&self) -> Option<&Vec<SectionType>> {
-        Some(&self.sections)
+    pub fn get_sections(&self) -> &Vec<SectionType> {
+        &self.sections
     }
 }
 

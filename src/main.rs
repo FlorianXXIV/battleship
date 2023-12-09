@@ -103,12 +103,12 @@ fn init_new() -> Result<(), String> {
 
     print_txt("lang/en/greeting2.txt", None).expect("Failed to print greeting.");
 
-    game_loop(ship, player);
+    game_loop(&ship, &player);
     
     Ok(())
 }
 
-fn game_loop(ship: Ship, player: Player) {
+fn game_loop(ship: &Ship, player: &Player) {
     let mut battlefield = init_battle(3, ship);
     println!("{:?}", battlefield)
 }
