@@ -15,7 +15,7 @@ pub struct Ship {
 ///     - ENGINE: Health:i32, Power: i32
 ///     - DECK: Health:i32, Weapons: Vec<Weapon>
 ///     - Bridge: Health:i32, Crew:i32, Weapons: Vec<DefenseSystem>
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum SectionType {
     ENGINE((i32, i32)),
     DECK((i32, Vec<bool>)),

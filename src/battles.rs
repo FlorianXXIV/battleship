@@ -1,4 +1,4 @@
-use crate::battles::TileType::{SHIP, WATER};
+use crate::battles::TileType::{LAND, SHIP, WATER};
 use crate::ship::{SectionType, Ship};
 
 #[derive(Debug)]
@@ -6,7 +6,7 @@ pub struct Battlefield<'a> {
     battlefield: Vec<Vec<TileType<'a>>>,
 }
 
-impl <'a>Battlefield<'_> {
+impl <'a>Battlefield<'a> {
     pub fn get_battlefield(&'a self) -> &Vec<Vec<TileType<'a>>> {
         &self.battlefield
     }
@@ -35,8 +35,8 @@ impl <'a>Battlefield<'_> {
         }
     }
 
-    pub fn set_tile_at(&mut self, position: (usize, usize), tile_type: TileType) -> Result<(), &str> {
-        if self.battlefield.is_empty() { Err("Battlefield is empty") }
+    pub fn set_tile_at(&mut self, position: (usize, usize), tile_type: TileType<'a>) -> Result<(), &str> {
+        if self.battlefield.is_empty() { return Err("Battlefield is empty"); }
         if self.battlefield.len() < position.0 && self.battlefield[0].len() < position.1 {
             self.battlefield[position.0][position.1] = tile_type;
             Ok(())
@@ -46,7 +46,7 @@ impl <'a>Battlefield<'_> {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 enum TileType<'a> {
     WATER,
     LAND,
