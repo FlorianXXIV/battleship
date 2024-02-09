@@ -17,7 +17,7 @@ enum Tile {
 
 fn main() {
     let board = init_battle();
-
+    game_loop(board.0, board.1);
 }
 
 
@@ -44,8 +44,58 @@ fn init_battle() -> (Ship, Vec<Ship>) {
     enemies[0].position[0] = (-3, 3, 0);
     enemies[0].position[1] = (-3, 2, 1);
 
-    enemies[1].position[1] = (1, -2, 1);
+    enemies[1].position[0] = (1, -2, 1);
     enemies[1].position[1] = (2, -2, 0);
 
     (player, enemies)
+}
+
+fn game_loop(player: Ship, enemies: Vec<Ship>) {
+    let round = 0;
+    let mut game_over = false;
+    loop {
+        if round % enemies.len()+1 == 0 {
+            game_over = prompt_player();
+        } else {
+            game_over = enemy_turn(round % enemies.len());
+        }
+        if game_over {
+            break;
+        }
+    }
+}
+
+fn enemy_turn(p0: usize) -> bool {
+    todo!()
+}
+
+fn prompt_player() -> bool {
+    todo!()
+}
+
+fn fire(west: i32, horizon: i32, east: i32, ships: Vec<&mut Ship>, damage: Damage) -> i32{
+    let mut pos = -1;
+    for mut ship in ships {
+        pos +=1;
+        let mut i = 0;
+        let mut health = 0;
+        for position in ship.position{
+            i += 1;
+            if (west, horizon, east) == position {
+                if ship.hull[i] - damage < 0 {
+                    ship.hull [i] = 0;
+                    ship.weapons.pop();
+                }else {
+                    ship.hull[i] -= damage;
+                }
+            }
+        }
+        for hull in ship.hull {
+            health += hull;
+        }
+        if health == 0 {
+            pos
+        }
+    }
+    -1
 }
