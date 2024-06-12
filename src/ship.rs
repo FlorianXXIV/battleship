@@ -1,4 +1,4 @@
 struct Ship {
-    health:u32
-    
+    health:u32,
+    id:usize
 }
